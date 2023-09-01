@@ -15,8 +15,10 @@ class BankAccount:
             if self.balance >= amount:
                 self.balance -= amount
                 print(f"Withdrew ${amount}. New balance: ${self.balance}")
+                return True  # Withdrawal successful
             else:
-                raise ValueError("Insufficient funds.")
+                print("Insufficient funds. Please try again.")
+                return False  # Withdrawal failed
         else:
             raise ValueError("Invalid amount for withdrawal.")
 
@@ -48,11 +50,21 @@ def main():
         deposit_amount2 = float(input(f"Enter the deposit amount for {account2.account_holder}: $"))
         account2.deposit(deposit_amount2)
 
-        withdraw_amount1 = float(input(f"Enter the withdrawal amount for {account1.account_holder}: $"))
-        account1.withdraw(withdraw_amount1)
+        while True:
+            try:
+                withdraw_amount1 = float(input(f"Enter the withdrawal amount for {account1.account_holder}: $"))
+                if account1.withdraw(withdraw_amount1):
+                    break  # Exit the loop if withdrawal is successful
+            except ValueError as e:
+                print(f"Error: {e}")
 
-        withdraw_amount2 = float(input(f"Enter the withdrawal amount for {account2.account_holder}: $"))
-        account2.withdraw(withdraw_amount2)
+        while True:
+            try:
+                withdraw_amount2 = float(input(f"Enter the withdrawal amount for {account2.account_holder}: $"))
+                if account2.withdraw(withdraw_amount2):
+                    break  # Exit the loop if withdrawal is successful
+            except ValueError as e:
+                print(f"Error: {e}")
     except ValueError as e:
         print(f"Error: {e}")
         return
