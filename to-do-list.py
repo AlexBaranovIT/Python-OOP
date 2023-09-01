@@ -3,7 +3,7 @@ class Task:
     def __init__(self, task_name, priority):
         self.task_name = task_name
         self.priority = priority
-        self.completed = False
+        self.completed = False 
 
     def complete(self):
         self.completed = True
